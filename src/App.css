@@ -27,6 +27,11 @@ h2 {
   position: absolute !important;
   left: 18px !important;
   top: 22px !important;
+  z-index: 1 !important;
+}
+
+.button .icon {
+  width: 46px !important;
 }
 
 .item-price {
@@ -35,7 +40,18 @@ h2 {
   left: initial !important;
 }
 
-.header {
+.attached.segment {
+}
+
+.attached.segment .field {
+  text-align: left;
+}
+
+#clear {
+  clear: both;
+}
+
+.attached.header {
   background-color: orange !important;
   color: white !important;
 }
@@ -47,6 +63,25 @@ h2 {
   color: white;
 }
 
+.App-header .button {
+  top: -5px;
+}
+
 .App-intro {
   font-size: large;
+  clear: both;
+}
+
+.added-to-cart-message {
+  position: fixed !important; 
+  left: calc(50% - 162px) !important;
+  top: 16px !important;
+  padding-right: 30px !important;
+  z-index: 100;
+}
+
+@media (max-width: 798px) {
+  .App-header h2 {
+    display: none;
+  }
 }
