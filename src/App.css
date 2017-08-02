@@ -1,0 +1,52 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 60px;
+  display: inline-block;
+  padding: 5px;
+  float: left;
+  margin-top: -14px;
+}
+
+h2 {
+  margin: 0px;
+  display: inline-block;
+}
+
+.grid {
+  margin: 0 !important;
+}
+
+.column {
+  position: relative !important;
+}
+
+.item-status {
+  position: absolute !important;
+  left: 18px !important;
+  top: 22px !important;
+}
+
+.item-price {
+  top: 90px !important;
+  right: 23px !important;
+  left: initial !important;
+}
+
+.header {
+  background-color: orange !important;
+  color: white !important;
+}
+
+.App-header {
+  background-color: #222;
+  height: 72px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
