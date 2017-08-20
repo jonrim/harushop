@@ -4,8 +4,9 @@ import { Segment, Header, Image, Label, Icon, Form, Dropdown, Message } from 'se
 export default class Item extends Component {
   constructor(props) {
     super(props);
+    let shirt = props.shirt;
     this.state = {
-      size: 'sm',
+      size: shirt.stock['sm'] > 0 ? 'sm' : (shirt.stock['md'] > 0 ? 'md' : 'lg'),
       quantity: 1,
       hideAddedToCartMessage: true
     };
@@ -26,7 +27,6 @@ export default class Item extends Component {
     const { size, quantity, hideAddedToCartMessage } = this.state;
     const { addToCart, shirt } = this.props;
     let totalStock = Object.keys(shirt.stock).map(key => shirt.stock[key]).reduce((total, sizeStock) => total + sizeStock, 0);
-    console.log(totalStock)
     return (
       <div className='item'>
         <Message
@@ -57,7 +57,7 @@ export default class Item extends Component {
               <label>Size</label>
               <Dropdown fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'size'})} value={size} selection options={
                 [{
-                  key: 'sm', value: 'sm', text: 'Small', disabled: shirt.stock['sm'] === 0
+                  key: 'sm', value: 'sm', text: 'Small' + (shirt.stock['sm'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['sm'] === 0
                 },
                 {
                   key: 'md', value: 'md', text: 'Medium' + (shirt.stock['md'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['md'] === 0

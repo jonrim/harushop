@@ -53,7 +53,7 @@ export default class Shop extends Component {
     .then(res => res.json())
     .then(items => {
       items.forEach(item => {
-        item.stock = JSON.parse(item.stock)
+        item.stock = JSON.parse(JSON.stringify(eval("(" + item.stock + ")")));
       })
       this.setState({ items })
     })
