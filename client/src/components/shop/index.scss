@@ -20,6 +20,18 @@
   }
 }
 
+@media (max-width: 428px) {
+  .App-header {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 367px) {
+  .App-header {
+    font-size: 25px;
+  }
+}
+
 .App-intro {
   margin-top: 77px;
 }
@@ -54,6 +66,23 @@ h2 {
     height: 250px;
     width: 99%;
   }
+}
+
+.mobile-checkout {
+  width: 45px !important;
+  padding: 12px !important;
+  position: relative !important;
+  margin-right: -8px !important;
+  margin-top: -19px !important;
+
+  .icon {
+    padding: 0px !important;
+    width: 21px !important;
+  }
+}
+
+.slick-list {
+  overflow: hidden;
 }
 
 .slick-slider {
@@ -118,17 +147,16 @@ h2 {
   z-index: 1 !important;
 }
 
-.button .icon {
-  width: 46px !important;
+.App-intro {
+  .button .icon {
+    width: 46px !important;
+  }
 }
 
 .item-price {
   top: 90px !important;
   right: 23px !important;
   left: initial !important;
-}
-
-.attached.segment {
 }
 
 .attached.segment .field {
@@ -151,8 +179,12 @@ h2 {
   color: white;
 }
 
-.App-header .button {
-  top: -5px;
+.App-header .left.labeled.button {
+  top: -6px !important;
+}
+
+.App-header .mobile-checkout {
+  top: 9px !important;
 }
 
 .App-intro {

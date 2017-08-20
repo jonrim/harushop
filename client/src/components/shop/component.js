@@ -132,23 +132,40 @@ export default class Shop extends Component {
       <div className="App">
         <div className="App-header">
           <img src={require('./logo.png')} className="App-logo" alt="logo" />
-          haru the shiba inu
+          <span>haru the shiba inu</span>
           <Modal
             trigger={ 
-              <Button 
-                animated='vertical'
-                disabled={cart.length === 0}
-                floated='right'
-                icon
-                labelPosition='left'
-                color='yellow'
-                size={window.innerWidth >= 450 ? 'large' : 'small'}
-                onClick={e=> this.handleCheckoutModal(e, true)}
-              >
-                <Icon name='shop' size='large' />
-                <Button.Content hidden>Thank you!</Button.Content>
-                <Button.Content visible>Proceed to Checkout</Button.Content>
-              </Button>
+              
+                window.innerWidth >= 656 ?
+                (
+                  <Button 
+                    animated='vertical'
+                    disabled={cart.length === 0}
+                    floated='right'
+                    icon
+                    labelPosition='left'
+                    color='yellow'
+                    size={'large'}
+                    onClick={e=> this.handleCheckoutModal(e, true)}
+                  >
+                    <Icon name='shop' size='large' />
+                    <Button.Content hidden>Thank you!</Button.Content>
+                    <Button.Content visible>Proceed to Checkout</Button.Content>
+                  </Button>
+                ) : (
+                  <Button 
+                    className='mobile-checkout'
+                    animated='vertical'
+                    disabled={cart.length === 0}
+                    floated='right'
+                    color='yellow'
+                    size={'large'}
+                    onClick={e=> this.handleCheckoutModal(e, true)}
+                  >
+                    <Icon name='shop' size='large' />
+                  </Button>
+                )
+              
             }
             closeIcon='close'
             open={this.state.showCheckoutModal}
