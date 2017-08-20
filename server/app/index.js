@@ -3,8 +3,8 @@ import chalk from 'chalk';
 import express from 'express';
 import configure from './configure';
 import apiRouter from './api';
-import secrets from '../../secrets';
 import secrets_prod from '../../secrets_prod';
+import secrets from '../../secrets';
 
 const STRIPE_SECRET_KEY = process.env.NODE_ENV === 'production'
 ? secrets_prod.STRIPE_SECRET_KEY_LIVE
