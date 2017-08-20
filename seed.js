@@ -23,31 +23,29 @@ const seedItems = function () {
           name: 'Orange Haru white shirt',
           imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
           price: 19.99,
-          stock: {sm: 0, md: 5, lg: 10}
+          stock: '{sm: 0, md: 5, lg: 10}'
         },
         {
           name: 'Black Haru white shirt',
           imageUrl: 'https://cdn.shopify.com/s/files/1/0601/4169/products/Home-Is-Where-The-Dog-Is-Unisex-Tee-Red.jpg?v=1461351140',
           price: 19.99,
-          stock: {sm: 1, md: 5, lg: 0}
+          stock: '{sm: 1, md: 5, lg: 0}'
         },
         {
           name: 'Blue Haru white shirt',
           imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
           price: 19.99,
-          stock: {sm: 3, md: 0, lg: 10}
+          stock: '{sm: 3, md: 0, lg: 10}'
         },
         {
           name: 'Red Haru white shirt',
           imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
           price: 19.99,
-          stock: {sm: 0, md: 0, lg: 0}
+          stock: '{sm: 0, md: 0, lg: 0}'
         }
     ];
 
-    items.forEach(item => {
-        item.stock = JSON.stringify(item.stock)
-    })
+    
 
     const creatingItems = items.map(itemObj => {
         return Item.create(itemObj);
