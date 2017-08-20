@@ -66,18 +66,20 @@ export default class Item extends Component {
                   key: 'lg', value: 'lg', text: 'Large' + (shirt.stock['lg'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['lg'] === 0
                 }]
               } />
-              <label>Quantity</label>
-              <Dropdown fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'quantity'})} value={quantity} selection options={
-                [{
-                  key: 1, value: 1, text: 1
-                },
-                {
-                  key: 2, value: 2, text: '2' + (shirt.stock[size] < 2 ? ' (N/A)' : ''), disabled: shirt.stock[size] < 2
-                },
-                {
-                  key: 3, value: 3, text: '3' + (shirt.stock[size] < 3 ? ' (N/A)' : ''), disabled: shirt.stock[size] < 3
-                }]
-              } />
+              <span>
+                <label>Quantity</label>
+                <Dropdown fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'quantity'})} value={quantity} selection options={
+                  [{
+                    key: 1, value: 1, text: 1
+                  },
+                  {
+                    key: 2, value: 2, text: '2' + (shirt.stock[size] < 2 ? ' (N/A)' : ''), disabled: shirt.stock[size] < 2
+                  },
+                  {
+                    key: 3, value: 3, text: '3' + (shirt.stock[size] < 3 ? ' (N/A)' : ''), disabled: shirt.stock[size] < 3
+                  }]
+                } />
+              </span>
             </Form.Field>
             <Form.Button
               disabled={shirt.stock[size] === 0}
