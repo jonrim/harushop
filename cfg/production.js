@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const baseConfig = require('./base');
 const indexPath = path.join(__dirname, '../', 'client', 'src', 'index.html')
+const path = require('path')
 
 module.exports = Object.assign({}, baseConfig, {
   devtool: 'source-map',
