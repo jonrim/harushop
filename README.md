@@ -1,3 +1,4 @@
-# DAB-CLIENT #
+# Haru Shop #
 
-React client and Node server for client site
+Rushed simple React e-commerce site for friend's youtube channel.
+Please disregard this code. It is not modular and the SCSS is a mess.
