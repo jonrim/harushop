@@ -26,6 +26,7 @@ export default class Item extends Component {
     const { size, quantity, hideAddedToCartMessage } = this.state;
     const { addToCart, shirt } = this.props;
     let totalStock = Object.keys(shirt.stock).map(key => shirt.stock[key]).reduce((total, sizeStock) => total + sizeStock, 0);
+    console.log(totalStock)
     return (
       <div className='item'>
         <Message
