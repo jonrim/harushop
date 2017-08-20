@@ -1,52 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react'
 import { Grid, Icon, Button, Modal, Header, Image, Table } from 'semantic-ui-react';
 import StripeCheckout from 'react-stripe-checkout';
+import Slider from 'react-slick';
 import update from 'immutability-helper';
-import './App.css';
 import Item from './Item';
+import 'whatwg-fetch';
 
-// gotta change stock to an object or array based on sizes
-let shirts = [
-  {
-    name: 'Orange Haru white shirt',
-    imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
-    price: 19.99,
-    sizes: ['sm', 'md', 'lg'],
-    stock: 10
-  },
-  {
-    name: 'Black Haru white shirt',
-    imageUrl: 'https://cdn.shopify.com/s/files/1/0601/4169/products/Home-Is-Where-The-Dog-Is-Unisex-Tee-Red.jpg?v=1461351140',
-    price: 19.99,
-    sizes: ['sm', 'md', 'lg'],
-    stock: 5
-  },
-  {
-    name: 'Blue Haru white shirt',
-    imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
-    price: 19.99,
-    sizes: ['sm', 'md', 'lg'],
-    stock: 0
-  },
-  {
-    name: 'Red Haru white shirt',
-    imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
-    price: 19.99,
-    sizes: ['sm', 'md', 'lg'],
-    stock: 2
+const STRIPE_PUBLISHABLE = process.env.NODE_ENV === 'production' ?
+"pk_live_uoDg4Th6Fzebf22x7gx37dJ3" : "pk_test_vvZ5hoVS2njWOMhKCEpufe3h";
+
+const CURRENCY = 'USD';
+
+class PrevNavButton extends React.Component {
+  render() {
+    return <button onClick={this.props.onClick} className='fa fa-chevron-circle-left fa-3x' />
   }
-];
+}
 
-export default class App extends Component {
+class NextNavButton extends React.Component {
+  render() {
+    return <button onClick={this.props.onClick} className='fa fa-chevron-circle-right fa-3x' />
+  }
+}
+
+export default class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cart: [],
-      showCheckoutModal: false
+      showCheckoutModal: false,
+      numSlides: 3,
+      items: []
     };
-    this.addToCart = this.addToCart.bind(this);
-    this.removeFromCart = this.removeFromCart.bind(this);
-    this.handleCheckoutModal = this.handleCheckoutModal.bind(this);
+    this.changeNumSlides = this.changeNumSlides.bind(this);
   }
 
   componentDidMount() {
@@ -61,9 +47,19 @@ export default class App extends Component {
         checkoutButton.classList.remove('small');
       }
     });
+    fetch('/items', {
+      credentials: 'same-origin'
+    })
+    .then(res => res.json())
+    .then(items => {
+      items.forEach(item => {
+        item.stock = JSON.parse(item.stock)
+      })
+      this.setState({ items })
+    })
   }
 
-  addToCart(info, size, quantity) {
+  addToCart = (info, size, quantity) => {
     const { cart } = this.state;
     let newCart = update(cart, {
       $push: [{info, size, quantity}]
@@ -73,7 +69,7 @@ export default class App extends Component {
     });
   }
 
-  removeFromCart(index) {
+  removeFromCart = index => {
     const { cart } = this.state;
     let newCart = update(cart, {
       $unset: [index]
@@ -83,25 +79,60 @@ export default class App extends Component {
     });
   }
 
-  handleCheckoutModal(e, open) {
+  handleCheckoutModal = (e, open) => {
     this.setState({ showCheckoutModal: open });
   }
 
-  onToken(token) {
+  onToken = amount => token => {
+    console.log(token)
+    token.source = token.id;
+    token.currency = CURRENCY;
+    token.amount = Math.round(amount);
     fetch('/save-stripe-token', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(token),
     })
+    .then(data => alert('Payment Successful'))
+    .catch(data => alert('Payment Error'))
+  }
+
+  changeNumSlides() {
+    let numSlides = Math.floor(window.innerWidth / 260);
+    this.setState({ numSlides });
+  }
+
+  componentWillMount() {
+    this.changeNumSlides();
+    window.addEventListener('resize', this.changeNumSlides);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.changeNumSlides);
   }
 
   render() {
-    const { cart } = this.state;
+    const { cart, items } = this.state;
     let totalPrice = cart.reduce((sum, item) => sum + item.quantity*item.info.price, 0);
+    var settings = {
+      infinite: true,
+      speed: 500,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 4000,
+      arrows: false,
+      centerMode: true,
+      prevArrow: <PrevNavButton/>,
+      nextArrow: <NextNavButton/>
+    };
     return (
       <div className="App">
         <div className="App-header">
-          <img src={require('./imgs/logo.png')} className="App-logo" alt="logo" />
-          <h2>Welcome to Haru the Shiba Inu's Shop!</h2>
+          <img src={require('./logo.png')} className="App-logo" alt="logo" />
+          haru the shiba inu
           <Modal
             trigger={ 
               <Button 
@@ -178,11 +209,11 @@ export default class App extends Component {
             </Modal.Content>
             <Modal.Actions>
               <StripeCheckout
-                stripeKey="pk_test_vvZ5hoVS2njWOMhKCEpufe3h"
+                stripeKey={STRIPE_PUBLISHABLE}
                 name="Stripe" // the pop-in header title
                 panelLabel="Pay" // prepended to the amount in the bottom pay button
                 amount={totalPrice*100} // cents
-                currency="USD"
+                currency={CURRENCY}
                 locale="en"
                 // Note: Enabling either address option will give the user the ability to
                 // fill out both. Addresses are sent as a second parameter in the token callback.
@@ -194,7 +225,7 @@ export default class App extends Component {
                 alipay // accept Alipay (default false)
                 bitcoin // accept Bitcoins (default false)
                 allowRememberMe // "Remember Me" option (default true)
-                token={this.onToken} // submit callback
+                token={this.onToken(totalPrice*100)} // submit callback
                 closed={e => this.handleCheckoutModal(e, false)}
                 // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
                 // you are using multiple stripe keys
@@ -211,9 +242,16 @@ export default class App extends Component {
           </Modal>
         </div>
         <div className="App-intro">
+          <Slider {...settings}>
+            <div className="banner-picture"><img src={require('./p1.png')} /></div>
+            <div className="banner-picture"><img src={require('./p2.jpg')} /></div>
+            <div className="banner-picture"><img src={require('./p3.jpg')} /></div>
+            <div className="banner-picture"><img src={require('./p4.jpg')} /></div>
+            <div className="banner-picture"><img src={require('./p5.jpg')} /></div>
+          </Slider>
           <Grid columns={3} stackable doubling>
             {
-              shirts.map(shirt => (
+              items.map(shirt => (
                 <Grid.Column key={shirt.name}>
                   <Item addToCart={this.addToCart} shirt={shirt} />
                 </Grid.Column>

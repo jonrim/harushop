@@ -1,5 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Dosis);
+
 .App {
   text-align: center;
+}
+
+.App-header {
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+  top: 0;
+  font-family: 'Dosis', sans-serif;
+  text-align: left;
+  font-size: 38px;
+  font-weight: 900;
+  padding: 23px !important;
+
+  button {
+    top: -8px !important;
+  }
+}
+
+.App-intro {
+  margin-top: 77px;
 }
 
 .App-logo {
@@ -7,7 +29,7 @@
   display: inline-block;
   padding: 5px;
   float: left;
-  margin-top: -14px;
+  margin-top: -20px;
 }
 
 h2 {
@@ -21,6 +43,72 @@ h2 {
 
 .column {
   position: relative !important;
+}
+
+.banner-picture {
+  display: -webkit-inline-box !important;
+
+  img {
+    background-size: cover;
+    object-fit: cover;
+    height: 250px;
+    width: 99%;
+  }
+}
+
+.slick-slider {
+  button {
+    position: absolute;
+    top: calc(50% - 25px);
+    z-index: 2;
+    background: transparent;
+    border: none;
+    outline: 0;
+    &:hover {
+      color: #0688fe;
+    }
+  }
+}
+
+.red.button {
+  background-color: white !important;
+  color: red !important;
+  font-size: 20px !important;
+}
+
+.fa-chevron-circle-left {
+  left: -4%;
+}
+
+.fa-chevron-circle-right {
+  right: -4%;
+}
+
+.item {
+  .segment {
+    background-color: #e8e8e8; 
+  }
+
+  .sold-out {
+    opacity: 0.4;
+  }
+
+  .field {
+    b {
+      display: block;
+      margin: 10px 0;
+    }
+
+    label {
+      display: inline-block !important;
+      margin: 0 10px !important;
+    }
+
+    .dropdown {
+      display: inline-block !important;
+      width: 30% !important;
+    }
+  }
 }
 
 .item-status {
