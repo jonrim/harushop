@@ -68,48 +68,49 @@ module.exports = function () {
   });
 
   app.post('/save-stripe-token', (req, res, next) => {
-    req.body.cart.forEach(itemInCart => {
-      console.log(itemInCart)
-      Item.findById(itemInCart.info.id)
+    let error = false;
+    Promise.all(req.body.cart.map(itemInCart => {
+      return Item.findById(itemInCart.info.id)
       .then(itemInDB => {
         if (!itemInDB) {
           throw new Error('Could not find item with id ' + itemInCart.info.id);
         }
         let newStock = JSON.parse(JSON.stringify(eval("(" + itemInDB.stock + ")")));
-        console.log(itemInDB)
         if (newStock[itemInCart.size] < itemInCart.quantity) {
           throw new Error('The shirt ' + itemInCart.info.name + ' sold out/is now low on stock after you visited the page!');
         }
       })
-      .catch(err => {
-        res.send(err);
+    }))
+    .then(() => {
+      req.body.cart.forEach(itemInCart => {
+        Item.findById(itemInCart.info.id)
+        .then(itemInDB => {
+          let newStock = JSON.parse(JSON.stringify(eval("(" + itemInDB.stock + ")")));
+          newStock[itemInCart.size] -= itemInCart.quantity;
+          itemInDB.update({stock: JSON.stringify(newStock)});
+        })
       })
+
+      stripe.charges.create({
+        amount: req.body.amount,
+        currency: req.body.currency,
+        source: req.body.source,
+        description: req.body.fullName + ' - ' + req.body.street + ' ' + req.body.city + ', ' + req.body.state + ' ' + req.body.zip,
+        destination: req.body.destination,
+        receipt_email: req.body.email
+      }, (err, charge) => {
+        if (err) {
+          next(err);
+        }
+        else {
+          res.json(charge);
+        }
+      });
+    })
+    .catch(err => {
+      next(err);
     })
 
-    req.body.cart.forEach(itemInCart => {
-      Item.findById(itemInCart.info.id)
-      .then(itemInDB => {
-        let newStock = JSON.parse(JSON.stringify(eval("(" + itemInDB.stock + ")")));
-        newStock[itemInCart.size] -= itemInCart.quantity;
-        itemInDB.update({stock: JSON.stringify(newStock)});
-      })
-    })
-
-    stripe.charges.create({
-      amount: req.body.amount,
-      currency: req.body.currency,
-      source: req.body.source,
-      description: req.body.fullName + ' - ' + req.body.street + ' ' + req.body.city + ', ' + req.body.state + ' ' + req.body.zip,
-      destination: req.body.destination,
-      receipt_email: req.body.email
-    }, (err, charge) => {
-      if (err) {
-        res.send(err);
-      }
-      else {
-        res.json(charge);
-      }
-    });
   })
 
   // Error catching

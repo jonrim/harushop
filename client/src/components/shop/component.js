@@ -120,9 +120,10 @@ export default class Shop extends Component {
       },
       body: JSON.stringify(token),
     })
+    .then(res => res.json())
     .then(res => {
-      if (res instanceof Error) {
-        throw new Error('Payment Error - ' + res);
+      if (res instanceof Error || res.error_code) {
+        throw new Error('Payment Error - ' + res.message);
       }
       this.msg.success('Payment Successful', {
         time: 4000
@@ -131,7 +132,7 @@ export default class Shop extends Component {
     })
     .catch(err => {
       this.msg.error(err.message, {
-        time: 4000
+        time: 8000
       });
     });
   }
