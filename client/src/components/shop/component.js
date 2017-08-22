@@ -84,7 +84,6 @@ export default class Shop extends Component {
   }
 
   onToken = amount => token => {
-    console.log(token)
     token.source = token.id;
     token.currency = CURRENCY;
     token.amount = Math.round(amount);
@@ -95,8 +94,14 @@ export default class Shop extends Component {
       },
       body: JSON.stringify(token),
     })
-    .then(data => alert('Payment Successful'))
-    .catch(data => alert('Payment Error'))
+    .then(data => {
+      alert('Payment Successful');
+      this.forceUpdate();
+    })
+    .catch(data => {
+      alert('Payment Error');
+      this.forceUpdate();
+    });
   }
 
   changeNumSlides() {
@@ -203,7 +208,7 @@ export default class Shop extends Component {
                           {item.size}
                         </Table.Cell>
                         <Table.Cell>
-                          ${item.info.price % 1 === 0 ? Math.trunc(item.info.price) : item.info.price}
+                          ${item.info.price % 1 === 0 ? Math.trunc(item.info.price) : item.info.price.toFixed(2)}
                         </Table.Cell>
                         <Table.Cell>
                           {item.quantity}
