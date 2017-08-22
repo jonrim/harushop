@@ -11,7 +11,7 @@
   top: 0;
   font-family: 'Encode Sans', sans-serif;
   text-align: left;
-  font-size: 38px;
+  font-size: 32px;
   font-weight: 900;
   padding: 23px !important;
 
@@ -20,15 +20,15 @@
   }
 }
 
-@media (max-width: 428px) {
+@media (max-width: 772px) {
   .App-header {
-    font-size: 28px;
+    font-size: 22px;
   }
 }
 
-@media (max-width: 367px) {
+@media (max-width: 384px) {
   .App-header {
-    font-size: 25px;
+    font-size: 20px;
   }
 }
 
@@ -188,7 +188,7 @@ h2 {
 }
 
 .App-header .mobile-checkout {
-  top: 9px !important;
+  top: 10px !important;
 }
 
 .App-intro {
