@@ -72,7 +72,7 @@ module.exports = function () {
       amount: req.body.amount,
       currency: req.body.currency,
       source: req.body.source,
-      description: 'Charge of ' + req.body.amount/100 + ' ' + req.body.currency,
+      description: req.body.fullName + ' - ' + req.body.street + ' ' + req.body.city + ', ' + req.body.state + ' ' + req.body.zip,
       destination: req.body.destination,
       receipt_email: req.body.email
     })

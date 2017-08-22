@@ -212,6 +212,18 @@ h2 {
   width: 50px;
 }
 
+.fullName, .street {
+  width: 100%;
+}
+
+.state, .zip {
+  width: 33%;
+}
+
+.city {
+  width: 34%;
+}
+
 tfoot.full-width th {
   text-align: right !important;
   font-weight: bold !important;

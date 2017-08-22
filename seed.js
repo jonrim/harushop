@@ -28,7 +28,7 @@ const seedItems = function () {
         {
           name: 'Black Haru white shirt',
           imageUrl: 'https://cdn.shopify.com/s/files/1/0601/4169/products/Home-Is-Where-The-Dog-Is-Unisex-Tee-Red.jpg?v=1461351140',
-          price: 20.00,
+          price: 0.50,
           stock: '{sm: 1, md: 5, lg: 0}'
         },
         {

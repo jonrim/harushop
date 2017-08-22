@@ -7,8 +7,7 @@ export default class Item extends Component {
     let shirt = props.shirt;
     this.state = {
       size: shirt.stock['sm'] > 0 ? 'sm' : (shirt.stock['md'] > 0 ? 'md' : 'lg'),
-      quantity: 1,
-      hideAddedToCartMessage: true
+      quantity: 1
     };
     this.setProp = this.setProp.bind(this);
   }
@@ -24,20 +23,11 @@ export default class Item extends Component {
   }
 
   render() {
-    const { size, quantity, hideAddedToCartMessage } = this.state;
+    const { size, quantity } = this.state;
     const { addToCart, shirt } = this.props;
     let totalStock = Object.keys(shirt.stock).map(key => shirt.stock[key]).reduce((total, sizeStock) => total + sizeStock, 0);
     return (
       <div className='item'>
-        <Message
-          className='added-to-cart-message'
-          color='green'
-          header= {shirt.name + '(s) added to cart!'}
-          compact
-          onDismiss={e => this.setProp(e, {name: 'hideAddedToCartMessage', value: true})}
-          size='mini'
-          hidden={hideAddedToCartMessage}
-        />
         {
           (totalStock > 0) ? (
             <Label className='item-status' floating color='blue' ribbon>IN STOCK</Label>
@@ -47,13 +37,10 @@ export default class Item extends Component {
         }
         <Segment className={totalStock === 0 ? 'sold-out' : 'in-stock'}>
           <Image shape='rounded' src={shirt.imageUrl} fluid />
-          <Form onSubmit={e => {
-            addToCart(shirt, size, quantity);
-            this.setProp(e, {name: 'hideAddedToCartMessage', value: false});
-          }}>
+          <Form onSubmit={e => addToCart(shirt, size, quantity)}>
             <Form.Field>
               <b>{ shirt.name }</b>
-              <p>${ shirt.price % 1 === 0 ? Math.trunc(shirt.price) : shirt.price.toFixed(2) }</p>
+              <p>${ shirt.price % 1 === 0 ? Math.trunc(shirt.price) : parseFloat(shirt.price).toFixed(2) }</p>
               <label>Size</label>
               <Dropdown fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'size'})} value={size} selection options={
                 [{

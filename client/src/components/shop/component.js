@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { Grid, Icon, Button, Modal, Header, Image, Table } from 'semantic-ui-react';
+import { Grid, Icon, Button, Modal, Header, Image, Table, Input } from 'semantic-ui-react';
 import StripeCheckout from 'react-stripe-checkout';
 import Slider from 'react-slick';
 import update from 'immutability-helper';
+import AlertContainer from 'react-alert';
 import Item from './Item';
 import 'whatwg-fetch';
 
@@ -10,6 +11,14 @@ const STRIPE_PUBLISHABLE = process.env.NODE_ENV === 'production' ?
 "pk_live_rKdUDjlzDrNmQenJd1pGaWfH" : "pk_test_vvZ5hoVS2njWOMhKCEpufe3h";
 
 const CURRENCY = 'USD';
+
+const information = [
+  {display: 'Full Name', name: 'fullName'},
+  {display: 'Street', name: 'street'},
+  {display: 'City', name: 'city'},
+  {display: 'State', name: 'state'},
+  {display: 'Zip Code', name: 'zip'}
+];
 
 class PrevNavButton extends React.Component {
   render() {
@@ -30,7 +39,12 @@ export default class Shop extends Component {
       cart: [],
       showCheckoutModal: false,
       numSlides: 3,
-      items: []
+      items: [],
+      fullName: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: ''
     };
     this.changeNumSlides = this.changeNumSlides.bind(this);
   }
@@ -67,6 +81,9 @@ export default class Shop extends Component {
     this.setState({
       cart: newCart
     });
+    this.msg.success(info.name + '(s) added to cart!', {
+      time: 2000
+    });
   }
 
   removeFromCart = index => {
@@ -84,9 +101,19 @@ export default class Shop extends Component {
   }
 
   onToken = amount => token => {
+    const { fullName, street, city, state, zip } = this.state;
     token.source = token.id;
     token.currency = CURRENCY;
     token.amount = Math.round(amount);
+    token = {
+      ...token,
+      fullName,
+      street,
+      city,
+      state,
+      zip
+    };
+    console.log(token)
     fetch('/save-stripe-token', {
       method: 'POST',
       headers: {
@@ -95,13 +122,24 @@ export default class Shop extends Component {
       body: JSON.stringify(token),
     })
     .then(data => {
-      alert('Payment Successful');
-      this.forceUpdate();
+      console.log('success')
+      this.msg.success('Payment Successful', {
+        time: 2000
+      });
     })
     .catch(data => {
-      alert('Payment Error');
-      this.forceUpdate();
+      this.msg.error('Payment Error', {
+        time: 2000
+      });
     });
+  }
+
+  alertOptions = {
+    offset: 14,
+    position: 'top left',
+    theme: 'light',
+    time: 5000,
+    transition: 'scale'
   }
 
   changeNumSlides() {
@@ -118,8 +156,13 @@ export default class Shop extends Component {
     window.removeEventListener('resize', this.changeNumSlides);
   }
 
+  handleChange = e => {
+    console.log(e.target.name)
+    this.setState({[e.target.name]: e.target.value});
+  }
+
   render() {
-    const { cart, items } = this.state;
+    const { cart, items, fullName, street, city, state, zip } = this.state;
     let totalPrice = cart.reduce((sum, item) => sum + item.quantity*item.info.price, 0);
     var settings = {
       infinite: true,
@@ -135,6 +178,7 @@ export default class Shop extends Component {
     };
     return (
       <div className="App">
+        <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
         <div className="App-header">
           <img src={require('./logo.png')} className="App-logo" alt="logo" />
           <span>HARU THE SHIBA INU</span>
@@ -208,7 +252,7 @@ export default class Shop extends Component {
                           {item.size}
                         </Table.Cell>
                         <Table.Cell>
-                          ${item.info.price % 1 === 0 ? Math.trunc(item.info.price) : item.info.price.toFixed(2)}
+                          ${item.info.price % 1 === 0 ? Math.trunc(item.info.price) : parseFloat(item.info.price).toFixed(2)}
                         </Table.Cell>
                         <Table.Cell>
                           {item.quantity}
@@ -222,12 +266,23 @@ export default class Shop extends Component {
                     <Table.HeaderCell colSpan='13'>
                       Total Price: $ 
                       {
-                        totalPrice
+                        parseFloat(totalPrice).toFixed(2)
                       }
                     </Table.HeaderCell>
                   </Table.Row>
                 </Table.Footer>
               </Table>
+              {
+                information.map(field => (
+                  <Input
+                    key={field.name}
+                    className={'fieldSpan ' + field.name}
+                    name={field.name}
+                    placeholder={field.display}
+                    onChange={this.handleChange}
+                  />
+                ))
+              }
             </Modal.Content>
             <Modal.Actions>
               <StripeCheckout
@@ -237,16 +292,7 @@ export default class Shop extends Component {
                 amount={totalPrice*100} // cents
                 currency={CURRENCY}
                 locale="en"
-                // Note: Enabling either address option will give the user the ability to
-                // fill out both. Addresses are sent as a second parameter in the token callback.
-                shippingAddress
-                billingAddress
-                // Note: enabling both zipCode checks and billing or shipping address will
-                // cause zipCheck to be pulled from billing address (set to shipping if none provided).
-                zipCode={false}
-                alipay // accept Alipay (default false)
-                bitcoin // accept Bitcoins (default false)
-                allowRememberMe // "Remember Me" option (default true)
+                allowRememberMe={false} // "Remember Me" option (default true)
                 token={this.onToken(totalPrice*100)} // submit callback
                 closed={e => this.handleCheckoutModal(e, false)}
                 // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
@@ -256,7 +302,7 @@ export default class Shop extends Component {
                 // useful if you're using React-Tap-Event-Plugin
                 triggerEvent="onClick"
               >
-                <Button color='green' disabled={totalPrice === 0}>
+                <Button color='green' disabled={totalPrice === 0 || !fullName || !street || !state || !zip || !city}>
                   <Icon name='checkmark' /> Purchase with Stripe
                 </Button>
               </StripeCheckout>
