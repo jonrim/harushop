@@ -7,7 +7,7 @@ import Item from './Item';
 import 'whatwg-fetch';
 
 const STRIPE_PUBLISHABLE = process.env.NODE_ENV === 'production' ?
-"pk_live_uoDg4Th6Fzebf22x7gx37dJ3" : "pk_test_vvZ5hoVS2njWOMhKCEpufe3h";
+"pk_live_rKdUDjlzDrNmQenJd1pGaWfH" : "pk_test_vvZ5hoVS2njWOMhKCEpufe3h";
 
 const CURRENCY = 'USD';
 
