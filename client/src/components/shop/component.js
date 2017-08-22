@@ -132,7 +132,7 @@ export default class Shop extends Component {
       <div className="App">
         <div className="App-header">
           <img src={require('./logo.png')} className="App-logo" alt="logo" />
-          <span>haru the shiba inu</span>
+          <span>HARU THE SHIBA INU</span>
           <Modal
             trigger={ 
               
