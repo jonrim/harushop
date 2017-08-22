@@ -113,7 +113,6 @@ export default class Shop extends Component {
       state,
       zip
     };
-    console.log(token)
     fetch('/save-stripe-token', {
       method: 'POST',
       headers: {
@@ -121,15 +120,17 @@ export default class Shop extends Component {
       },
       body: JSON.stringify(token),
     })
-    .then(data => {
-      console.log('success')
+    .then(res => {
+      if (res instanceof Error) {
+        throw new Error('Payment Error', res);
+      }
       this.msg.success('Payment Successful', {
-        time: 2000
+        time: 4000
       });
     })
-    .catch(data => {
-      this.msg.error('Payment Error', {
-        time: 2000
+    .catch(err => {
+      this.msg.error(err.message, {
+        time: 4000
       });
     });
   }
@@ -157,7 +158,6 @@ export default class Shop extends Component {
   }
 
   handleChange = e => {
-    console.log(e.target.name)
     this.setState({[e.target.name]: e.target.value});
   }
 

@@ -75,7 +75,14 @@ module.exports = function () {
       description: req.body.fullName + ' - ' + req.body.street + ' ' + req.body.city + ', ' + req.body.state + ' ' + req.body.zip,
       destination: req.body.destination,
       receipt_email: req.body.email
-    })
+    }, (err, charge) => {
+      if (err) {
+        res.send(err);
+      }
+      else {
+        res.json(charge)
+      }
+    });
   })
 
   // Error catching
