@@ -203,7 +203,7 @@ export default class Shop extends Component {
                           {item.size}
                         </Table.Cell>
                         <Table.Cell>
-                          ${Math.trunc(item.info.price)}
+                          ${item.info.price % 1 === 0 ? Math.trunc(item.info.price) : item.info.price}
                         </Table.Cell>
                         <Table.Cell>
                           {item.quantity}

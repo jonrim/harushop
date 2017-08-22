@@ -53,7 +53,7 @@ export default class Item extends Component {
           }}>
             <Form.Field>
               <b>{ shirt.name }</b>
-              <p>${ Math.trunc(shirt.price) }</p>
+              <p>${ shirt.price % 1 === 0 ? Math.trunc(shirt.price) : shirt.price }</p>
               <label>Size</label>
               <Dropdown fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'size'})} value={size} selection options={
                 [{
