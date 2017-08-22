@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Segment, Header, Image, Label, Icon, Form, Dropdown, Message } from 'semantic-ui-react';
+import 'ie-array-find-polyfill';
 
 export default class Item extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class Item extends Component {
 
   render() {
     const { size, quantity } = this.state;
-    const { addToCart, shirt } = this.props;
+    const { addToCart, shirt, cart } = this.props;
     let totalStock = Object.keys(shirt.stock).map(key => shirt.stock[key]).reduce((total, sizeStock) => total + sizeStock, 0);
     return (
       <div className='item'>
@@ -69,7 +70,7 @@ export default class Item extends Component {
               </span>
             </Form.Field>
             <Form.Button
-              disabled={shirt.stock[size] === 0}
+              disabled={shirt.stock[size] === 0 || cart.find(item => item.info.id === shirt.id && item.size === size) !== undefined}
               floated='right'
               icon
               labelPosition='left'

@@ -88,9 +88,8 @@ export default class Shop extends Component {
 
   removeFromCart = index => {
     const { cart } = this.state;
-    let newCart = update(cart, {
-      $unset: [index]
-    });
+    let newCart = cart.slice();
+    newCart.splice(index, 1);
     this.setState({
       cart: newCart
     });
@@ -101,7 +100,7 @@ export default class Shop extends Component {
   }
 
   onToken = amount => token => {
-    const { fullName, street, city, state, zip } = this.state;
+    const { fullName, street, city, state, zip, cart } = this.state;
     token.source = token.id;
     token.currency = CURRENCY;
     token.amount = Math.round(amount);
@@ -111,7 +110,8 @@ export default class Shop extends Component {
       street,
       city,
       state,
-      zip
+      zip,
+      cart
     };
     fetch('/save-stripe-token', {
       method: 'POST',
@@ -122,11 +122,12 @@ export default class Shop extends Component {
     })
     .then(res => {
       if (res instanceof Error) {
-        throw new Error('Payment Error', res);
+        throw new Error('Payment Error - ' + res);
       }
       this.msg.success('Payment Successful', {
         time: 4000
       });
+      this.forceUpdate();
     })
     .catch(err => {
       this.msg.error(err.message, {
@@ -321,7 +322,7 @@ export default class Shop extends Component {
             {
               items.map(shirt => (
                 <Grid.Column key={shirt.name}>
-                  <Item addToCart={this.addToCart} shirt={shirt} />
+                  <Item addToCart={this.addToCart} shirt={shirt} cart={cart} />
                 </Grid.Column>
               ))
             }

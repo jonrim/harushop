@@ -68,6 +68,33 @@ module.exports = function () {
   });
 
   app.post('/save-stripe-token', (req, res, next) => {
+    req.body.cart.forEach(itemInCart => {
+      console.log(itemInCart)
+      Item.findById(itemInCart.info.id)
+      .then(itemInDB => {
+        if (!itemInDB) {
+          throw new Error('Could not find item with id ' + itemInCart.info.id);
+        }
+        let newStock = JSON.parse(JSON.stringify(eval("(" + itemInDB.stock + ")")));
+        console.log(itemInDB)
+        if (newStock[itemInCart.size] < itemInCart.quantity) {
+          throw new Error('The shirt ' + itemInCart.info.name + ' sold out/is now low on stock after you visited the page!');
+        }
+      })
+      .catch(err => {
+        res.send(err);
+      })
+    })
+
+    req.body.cart.forEach(itemInCart => {
+      Item.findById(itemInCart.info.id)
+      .then(itemInDB => {
+        let newStock = JSON.parse(JSON.stringify(eval("(" + itemInDB.stock + ")")));
+        newStock[itemInCart.size] -= itemInCart.quantity;
+        itemInDB.update({stock: JSON.stringify(newStock)});
+      })
+    })
+
     stripe.charges.create({
       amount: req.body.amount,
       currency: req.body.currency,
@@ -80,7 +107,7 @@ module.exports = function () {
         res.send(err);
       }
       else {
-        res.json(charge)
+        res.json(charge);
       }
     });
   })
