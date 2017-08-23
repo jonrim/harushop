@@ -224,6 +224,14 @@ h2 {
   width: 34%;
 }
 
+.item {
+  .form {
+    label {
+      font-weight: 700;
+    }
+  }
+}
+
 tfoot.full-width th {
   text-align: right !important;
   font-weight: bold !important;
