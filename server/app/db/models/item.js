@@ -12,9 +12,9 @@ module.exports = function (db) {
                 notEmpty: true,
             }
         },
-        imageUrl: {
-            type: Sequelize.STRING,
-            allowNull: false,
+        imageUrls: {
+            type: Sequelize.TEXT,
+            defaultValue: '',
             validate: {
                 notEmpty: true,
             }

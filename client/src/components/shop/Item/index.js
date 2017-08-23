@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import { Segment, Header, Image, Label, Icon, Form, Dropdown, Message } from 'semantic-ui-react';
 import 'ie-array-find-polyfill';
+import Slider from 'react-slick';
+
+class PrevNavButton extends React.Component {
+  render() {
+    return <button onClick={this.props.onClick} className='fa fa-chevron-circle-left fa-3x' />
+  }
+}
+
+class NextNavButton extends React.Component {
+  render() {
+    return <button onClick={this.props.onClick} className='fa fa-chevron-circle-right fa-3x' />
+  }
+}
 
 export default class Item extends Component {
   constructor(props) {
@@ -26,6 +39,14 @@ export default class Item extends Component {
   render() {
     const { size, quantity } = this.state;
     const { addToCart, shirt, cart } = this.props;
+    var settings = {
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      prevArrow: <PrevNavButton/>,
+      nextArrow: <NextNavButton/>
+    };
     let totalStock = Object.keys(shirt.stock).map(key => shirt.stock[key]).reduce((total, sizeStock) => total + sizeStock, 0);
     return (
       <div className='item'>
@@ -37,7 +58,13 @@ export default class Item extends Component {
           )
         }
         <Segment className={totalStock === 0 ? 'sold-out' : 'in-stock'}>
-          <Image shape='rounded' src={shirt.imageUrl} fluid />
+          <Slider {...settings}>
+            {
+              shirt.imageUrls.split(',').map(imageUrl => (
+                <div className="item-image" key={imageUrl}><Image shape='rounded' src={imageUrl} fluid /></div>
+              ))
+            }
+          </Slider>
           <Form onSubmit={e => addToCart(shirt, size, quantity)}>
             <Form.Field>
               <b>{ shirt.name }</b>

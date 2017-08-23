@@ -85,20 +85,6 @@ h2 {
   overflow: hidden;
 }
 
-.slick-slider {
-  button {
-    position: absolute;
-    top: calc(50% - 25px);
-    z-index: 2;
-    background: transparent;
-    border: none;
-    outline: 0;
-    &:hover {
-      color: #0688fe;
-    }
-  }
-}
-
 .red.button {
   background-color: white !important;
   color: red !important;
@@ -140,6 +126,39 @@ h2 {
 
     span {
       display: inline-block !important;
+    }
+  }
+
+  .slick-slider {
+    button {
+      position: absolute;
+      top: calc(50% - 106px);
+      z-index: 10;
+      background: transparent;
+      border: none;
+      outline: 0;
+      color: #0688fe;
+      &:hover {
+        color: #f39e39;
+      }
+    }
+
+    .slick-list {
+      overflow: hidden;
+    }
+
+    .slick-track {
+      display: flex;
+
+      .item-image {
+        align-items: stretch;
+
+        img {
+          height: 100% !important;
+          object-fit: cover;
+          display: inline-block !important;
+        }
+      }
     }
   }
 }

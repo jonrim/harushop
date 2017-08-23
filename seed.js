@@ -21,28 +21,10 @@ const seedItems = function () {
     const items = [
         {
           name: 'Orange Haru white shirt',
-          imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
+          imageUrls: "https://i.gyazo.com/ded971f5828df9741bb080b1515b08c0.png,https://i.gyazo.com/220fd07dd52c1443201565e15913b4c0.jpg,https://i.gyazo.com/0d2d3ba740378137d8b4b80a6bcf0337.jpg,https://i.gyazo.com/1d9d22af84db10e0b1402ee4ec423091.jpg,https://i.gyazo.com/55e3ffd1eb4a0a2e1ef0d44d6b432a1a.png",
           price: 20.00,
           stock: '{sm: 0, md: 5, lg: 10}'
         },
-        {
-          name: 'Black Haru white shirt',
-          imageUrl: 'https://cdn.shopify.com/s/files/1/0601/4169/products/Home-Is-Where-The-Dog-Is-Unisex-Tee-Red.jpg?v=1461351140',
-          price: 0.50,
-          stock: '{sm: 1, md: 5, lg: 0}'
-        },
-        {
-          name: 'Blue Haru white shirt',
-          imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
-          price: 20.00,
-          stock: '{sm: 3, md: 0, lg: 10}'
-        },
-        {
-          name: 'Red Haru white shirt',
-          imageUrl: 'https://cdn.shopify.com/s/files/1/0505/1057/products/science.jpg?v=1447789931',
-          price: 20.00,
-          stock: '{sm: 0, md: 0, lg: 0}'
-        }
     ];
 
     
