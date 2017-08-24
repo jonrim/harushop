@@ -31,7 +31,15 @@ module.exports = function (db) {
             validate: {
                 notEmpty: true,
             }
-        }
+        },
+        description: {
+            type: Sequelize.TEXT,
+            defaultValue: ''
+        },
+        productDetails: {
+            type: Sequelize.TEXT,
+            defaultValue: ''
+        },
     }, {    
     });
 

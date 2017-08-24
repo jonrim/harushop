@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Grid, Icon, Button, Modal, Header, Image, Table, Input } from 'semantic-ui-react';
+import { Grid, Icon, Button, Modal, Header, Image, Table, Input, Message } from 'semantic-ui-react';
 import StripeCheckout from 'react-stripe-checkout';
 import Slider from 'react-slick';
 import update from 'immutability-helper';
@@ -319,11 +319,17 @@ export default class Shop extends Component {
             <div className="banner-picture"><img src={require('./p4.jpg')} /></div>
             <div className="banner-picture"><img src={require('./p5.jpg')} /></div>
           </Slider>
+          <Message color='blue'>
+            <Message.Header>
+              We are currently selling shirts in the United States only.
+            </Message.Header>
+            <p>We will sell shirts internationally soon. Sorry for the inconvenience!</p>
+          </Message>
           <Grid columns={3} stackable doubling>
             {
-              items.map(shirt => (
+              items.map((shirt, index) => (
                 <Grid.Column key={shirt.name}>
-                  <Item addToCart={this.addToCart} shirt={shirt} cart={cart} />
+                  <Item addToCart={this.addToCart} shirt={shirt} cart={cart} index={index}/>
                 </Grid.Column>
               ))
             }

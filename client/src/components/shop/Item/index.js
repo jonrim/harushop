@@ -36,6 +36,11 @@ export default class Item extends Component {
     this.setState(obj);
   }
 
+  componentDidMount() {
+    const { index } = this.props;
+    let item = document.getElementsByClassName('item')[index];
+  }
+
   render() {
     const { size, quantity } = this.state;
     const { addToCart, shirt, cart } = this.props;
@@ -58,7 +63,7 @@ export default class Item extends Component {
           )
         }
         <Segment className={totalStock === 0 ? 'sold-out' : 'in-stock'}>
-          <Slider {...settings}>
+          <Slider ref={slider => this.slider = slider} {...settings}>
             {
               shirt.imageUrls.split(',').map(imageUrl => (
                 <div className="item-image" key={imageUrl}><Image shape='rounded' src={imageUrl} fluid /></div>
@@ -69,32 +74,49 @@ export default class Item extends Component {
             <Form.Field>
               <b>{ shirt.name }</b>
               <p>${ shirt.price % 1 === 0 ? Math.trunc(shirt.price) : parseFloat(shirt.price).toFixed(2) }</p>
-              <label>Size</label>
-              <Dropdown fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'size'})} value={size} selection options={
-                [{
-                  key: 'sm', value: 'sm', text: 'Small' + (shirt.stock['sm'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['sm'] === 0
-                },
-                {
-                  key: 'md', value: 'md', text: 'Medium' + (shirt.stock['md'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['md'] === 0
-                },
-                {
-                  key: 'lg', value: 'lg', text: 'Large' + (shirt.stock['lg'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['lg'] === 0
-                }]
-              } />
-              <span>
-                <label>Quantity</label>
-                <Dropdown fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'quantity'})} value={quantity} selection options={
+              <div className='mobile-item-details'>
+                <p>
+                  <i>"{ shirt.description }"</i>
+                </p>
+                <p>
+                  <b>Product Details</b>
+                </p>
+                <ul>
+                  {
+                    shirt.productDetails.split(',').map(detail => (
+                      <li>{ detail }</li>
+                    ))
+                  }
+                </ul>
+              </div>
+              <div>
+                <label>Size</label>
+                <Dropdown className='size-dropdown' fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'size'})} value={size} selection options={
                   [{
-                    key: 1, value: 1, text: 1
+                    key: 'sm', value: 'sm', text: 'Small' + (shirt.stock['sm'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['sm'] === 0
                   },
                   {
-                    key: 2, value: 2, text: '2' + (shirt.stock[size] < 2 ? ' (N/A)' : ''), disabled: shirt.stock[size] < 2
+                    key: 'md', value: 'md', text: 'Medium' + (shirt.stock['md'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['md'] === 0
                   },
                   {
-                    key: 3, value: 3, text: '3' + (shirt.stock[size] < 3 ? ' (N/A)' : ''), disabled: shirt.stock[size] < 3
+                    key: 'lg', value: 'lg', text: 'Large' + (shirt.stock['lg'] === 0 ? ' (SOLD OUT)' : ''), disabled: shirt.stock['lg'] === 0
                   }]
                 } />
-              </span>
+                <span>
+                  <label>Quantity</label>
+                  <Dropdown className='quantity-dropdown' fluid disabled={totalStock === 0} onChange={(e,data) => this.setProp(e, {...data, name: 'quantity'})} value={quantity} selection options={
+                    [{
+                      key: 1, value: 1, text: 1
+                    },
+                    {
+                      key: 2, value: 2, text: '2' + (shirt.stock[size] < 2 ? ' (N/A)' : ''), disabled: shirt.stock[size] < 2
+                    },
+                    {
+                      key: 3, value: 3, text: '3' + (shirt.stock[size] < 3 ? ' (N/A)' : ''), disabled: shirt.stock[size] < 3
+                    }]
+                  } />
+                </span>
+              </div>
             </Form.Field>
             <Form.Button
               disabled={shirt.stock[size] === 0 || cart.find(item => item.info.id === shirt.id && item.size === size) !== undefined}
@@ -108,6 +130,21 @@ export default class Item extends Component {
             </Form.Button>
             <div id="clear"></div>
           </Form>
+        </Segment>
+        <Segment className='item-details'>
+          <p>
+            <i>"{ shirt.description }"</i>
+          </p>
+          <p>
+            <b>Product Details</b>
+          </p>
+          <ul>
+            {
+              shirt.productDetails.split(',').map(detail => (
+                <li>{ detail }</li>
+              ))
+            }
+          </ul>
         </Segment>
       </div>
     )

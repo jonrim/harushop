@@ -92,16 +92,65 @@ h2 {
 }
 
 .fa-chevron-circle-left {
-  left: -4%;
+  left: -2%;
 }
 
 .fa-chevron-circle-right {
-  right: -4%;
+  right: -2%;
+}
+
+@media (max-width: 767px) {
+  .mobile-item-details {
+    display: inline-block;
+  }
+
+  .item-details {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-item-details {
+    display: none;
+  }
+
+  .item-details {
+    display: block;
+  }
 }
 
 .item {
   .segment {
     background-color: #e8e8e8; 
+  }
+
+  .mobile-item-details {
+    margin-bottom: 20px;
+
+    ul {
+      margin: auto;
+      text-align: left;
+    }
+  }
+
+  .item-details {
+    text-align: center;
+    left: 20px;
+    transition: left 0.5s ease-in-out;
+    position: absolute;
+    top: 14px;
+    width: 300px;
+    z-index: -1;
+
+    ul {
+      text-align: left;
+    }
+  }
+
+  &:hover {
+    .item-details {
+      left: calc(100% - 14px);
+    }
   }
 
   .sold-out {
@@ -121,7 +170,14 @@ h2 {
 
     .dropdown {
       display: inline-block !important;
-      width: 30% !important;
+    }
+
+    .size-dropdown {
+      width: 96px;
+    }
+
+    .quantity-dropdown {
+      width: 52px;
     }
 
     span {
@@ -145,6 +201,7 @@ h2 {
 
     .slick-list {
       overflow: hidden;
+      width: 100%;
     }
 
     .slick-track {
@@ -161,6 +218,31 @@ h2 {
       }
     }
   }
+}
+
+.makeDim {
+  animation: dimBackground 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+@include keyframes(dimBackground) {
+  0% { background-color: rgba(0,0,0,0); }
+  100% { background-color: rgba(0,0,0,0.25); }
 }
 
 .item-status {
