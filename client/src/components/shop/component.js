@@ -245,7 +245,7 @@ export default class Shop extends Component {
                           <Button icon='remove' color='red' size='tiny' onClick={e => this.removeFromCart(index)}/>
                         </Table.Cell>
                         <Table.Cell>
-                          <Image shape='rounded' src={item.info.imageUrl} />
+                          <Image shape='rounded' src={item.info.imageUrls[0]} />
                         </Table.Cell>
                         <Table.Cell>
                           {item.info.name}
