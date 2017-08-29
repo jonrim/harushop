@@ -83,8 +83,8 @@ export default class Item extends Component {
                 </p>
                 <ul>
                   {
-                    shirt.productDetails.split(',').map(detail => (
-                      <li>{ detail }</li>
+                    shirt.productDetails.split(',').map((detail, index) => (
+                      <li key={"detail-" + index}>{ detail }</li>
                     ))
                   }
                 </ul>
@@ -140,8 +140,8 @@ export default class Item extends Component {
           </p>
           <ul>
             {
-              shirt.productDetails.split(',').map(detail => (
-                <li>{ detail }</li>
+              shirt.productDetails.split(',').map((detail, index) => (
+                <li key={'detail-' + index}>{ detail }</li>
               ))
             }
           </ul>

@@ -4,6 +4,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import Slider from 'react-slick';
 import update from 'immutability-helper';
 import AlertContainer from 'react-alert';
+import PaypalExpressBtn from 'react-paypal-express-checkout';
 import Item from './Item';
 import 'whatwg-fetch';
 
@@ -166,7 +167,7 @@ export default class Shop extends Component {
   render() {
     const { cart, items, fullName, street, city, state, zip } = this.state;
     let totalPrice = cart.reduce((sum, item) => sum + item.quantity*item.info.price, 0);
-    var settings = {
+    let settings = {
       infinite: true,
       speed: 500,
       slidesToShow: 3,
@@ -177,6 +178,10 @@ export default class Shop extends Component {
       centerMode: true,
       prevArrow: <PrevNavButton/>,
       nextArrow: <NextNavButton/>
+    };
+    let client = {
+      sandbox:    'ARKWITL-coNrHSGbt8_WR5WWuINAGEkw6pFP_K-UieX5As0Mwva_y2uVNeUoX5EdO8rPUYuothHLFup3',
+      production: process.env.PAYPAL_PRODUCTION_ID
     };
     return (
       <div className="App">
@@ -221,6 +226,7 @@ export default class Shop extends Component {
             closeIcon='close'
             open={this.state.showCheckoutModal}
             onClose={e => this.handleCheckoutModal(e, false)}
+            className='checkout-modal'
           >
             <Header>
               Checkout
@@ -241,10 +247,10 @@ export default class Shop extends Component {
                   {
                     cart.map((item, index) => (
                       <Table.Row key={item.info.name + '-' + index}>
-                        <Table.Cell>
+                        <Table.Cell className='remove-item-td'>
                           <Button icon='remove' color='red' size='tiny' onClick={e => this.removeFromCart(index)}/>
                         </Table.Cell>
-                        <Table.Cell>
+                        <Table.Cell className='item-img-td'>
                           <Image shape='rounded' src={item.info.imageUrls.split(',')[0]} />
                         </Table.Cell>
                         <Table.Cell>
@@ -274,41 +280,52 @@ export default class Shop extends Component {
                   </Table.Row>
                 </Table.Footer>
               </Table>
-              {
-                information.map(field => (
-                  <Input
-                    key={field.name}
-                    className={'fieldSpan ' + field.name}
-                    name={field.name}
-                    placeholder={field.display}
-                    onChange={this.handleChange}
-                  />
-                ))
-              }
+              <div>
+                <Grid columns={2} divided>
+                  <Grid.Column className='paypal-col'>
+                    <div className='paypal-div'>
+                      <PaypalExpressBtn client={client} currency={CURRENCY} total={totalPrice} />
+                    </div>
+                  </Grid.Column>
+                  <Grid.Column>
+                    <p><b>Contact Information</b></p>
+                    {
+                      information.map(field => (
+                        <Input
+                          key={field.name}
+                          className={'fieldSpan ' + field.name}
+                          name={field.name}
+                          placeholder={field.display}
+                          onChange={this.handleChange}
+                        />
+                      ))
+                    }
+                    <StripeCheckout
+                      stripeKey={STRIPE_PUBLISHABLE}
+                      name="Stripe" // the pop-in header title
+                      panelLabel="Pay" // prepended to the amount in the bottom pay button
+                      amount={totalPrice*100} // cents
+                      currency={CURRENCY}
+                      locale="en"
+                      allowRememberMe={false} // "Remember Me" option (default true)
+                      token={this.onToken(totalPrice*100)} // submit callback
+                      closed={e => this.handleCheckoutModal(e, false)}
+                      // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
+                      // you are using multiple stripe keys
+                      reconfigureOnUpdate={false}
+                      // Note: you can change the event to `onTouchTap`, `onClick`, `onTouchStart`
+                      // useful if you're using React-Tap-Event-Plugin
+                      triggerEvent="onClick"
+                      className='stripe-btn'
+                    >
+                      <Button color='blue' disabled={totalPrice === 0 || !fullName || !street || !state || !zip || !city}>
+                        Purchase with Stripe
+                      </Button>
+                    </StripeCheckout>
+                  </Grid.Column>
+                </Grid>
+              </div>
             </Modal.Content>
-            <Modal.Actions>
-              <StripeCheckout
-                stripeKey={STRIPE_PUBLISHABLE}
-                name="Stripe" // the pop-in header title
-                panelLabel="Pay" // prepended to the amount in the bottom pay button
-                amount={totalPrice*100} // cents
-                currency={CURRENCY}
-                locale="en"
-                allowRememberMe={false} // "Remember Me" option (default true)
-                token={this.onToken(totalPrice*100)} // submit callback
-                closed={e => this.handleCheckoutModal(e, false)}
-                // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
-                // you are using multiple stripe keys
-                reconfigureOnUpdate={false}
-                // Note: you can change the event to `onTouchTap`, `onClick`, `onTouchStart`
-                // useful if you're using React-Tap-Event-Plugin
-                triggerEvent="onClick"
-              >
-                <Button color='green' disabled={totalPrice === 0 || !fullName || !street || !state || !zip || !city}>
-                  <Icon name='checkmark' /> Purchase with Stripe
-                </Button>
-              </StripeCheckout>
-            </Modal.Actions>
           </Modal>
         </div>
         <div className="App-intro">
@@ -339,5 +356,3 @@ export default class Shop extends Component {
     );
   }
 }
-
-// <PaypalExpressBtn client={client} currency={CURRENCY} total={parseFloat(totalPrice).toFixed(2)} />

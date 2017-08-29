@@ -338,6 +338,67 @@ tfoot.full-width th {
   font-weight: bold !important;
 }
 
+.checkout-modal {
+  .fullName, .street {
+    margin-bottom: 10px;
+  }
+
+  .city, .state {
+    padding-right: 10px;
+  }
+
+  .state, .zip {
+    padding-left: 10px;
+  }
+
+  .blue.button {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    float: right;
+  }
+
+  .grid {
+    .paypal-col {
+      display: flex !important;
+      pointer-events: none;
+      opacity: 0.5;
+
+      .paypal-div {
+        margin: auto;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .remove-item-td {
+      float: right;
+      margin: -15px;
+    }
+
+    .item-img-td {
+      float: right;
+
+      img {
+        width: 100px;
+      }
+    }
+
+    .grid {
+      border: none;
+
+      .column {
+        width: 100% !important;
+        border: solid 0.5px #d6d6d6;
+        border-radius: 5px;
+      }
+
+      .paypal-col {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
 @media (max-width: 798px) {
   .App-header h2 {
     display: none;
