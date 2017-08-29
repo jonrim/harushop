@@ -91,11 +91,17 @@ module.exports = function () {
         })
       })
 
+      let description = req.body.fullName + ' - ' + req.body.street + ' ' + req.body.city + ', ' + req.body.state + ' ' + req.body.zip;
+
+      req.body.cart.forEach(item => {
+        description += '-- Quantity: ' + item.quantity + ', Size: ' + item.size;
+      });
+
       stripe.charges.create({
         amount: req.body.amount,
         currency: req.body.currency,
         source: req.body.source,
-        description: req.body.fullName + ' - ' + req.body.street + ' ' + req.body.city + ', ' + req.body.state + ' ' + req.body.zip,
+        description,
         destination: req.body.destination,
         receipt_email: req.body.email
       }, (err, charge) => {

@@ -339,3 +339,5 @@ export default class Shop extends Component {
     );
   }
 }
+
+// <PaypalExpressBtn client={client} currency={CURRENCY} total={parseFloat(totalPrice).toFixed(2)} />
