@@ -209,11 +209,13 @@ h2 {
 
       .item-image {
         align-items: stretch;
+        height: 100% !important;
 
         img {
-          height: 100% !important;
           object-fit: cover;
-          display: inline-block !important;
+          display: block !important;
+          background-size: cover;
+          height: 290px;
         }
       }
     }
@@ -313,18 +315,6 @@ h2 {
   width: 50px;
 }
 
-.fullName, .street {
-  width: 100%;
-}
-
-.state, .zip {
-  width: 33%;
-}
-
-.city {
-  width: 34%;
-}
-
 .item {
   .form {
     label {
@@ -341,14 +331,28 @@ tfoot.full-width th {
 .checkout-modal {
   .fullName, .street {
     margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .city {
+    width: 34%;
   }
 
   .city, .state {
     padding-right: 10px;
+
+    input {
+      width: 100%;
+    }
   }
 
   .state, .zip {
     padding-left: 10px;
+    width: 33%;
+
+    input {
+      width: 100%;
+    }
   }
 
   .blue.button {
@@ -365,6 +369,7 @@ tfoot.full-width th {
 
       .paypal-div {
         margin: auto;
+        height: 40px;
       }
     }
   }
