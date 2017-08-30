@@ -191,12 +191,12 @@ h2 {
     }
 
     .fa-arrow-circle-left {
-      left: 13px;
+      left: 3%;
       top: 15px;
     }
 
     .fa-arrow-circle-right {
-      right: 13px;
+      right: 3%;
       top: 15px;
     }
 
@@ -216,6 +216,12 @@ h2 {
           display: block !important;
           background-size: cover;
           height: 100%;
+        }
+
+        @media (max-width: 375px) {
+          img {
+            height: 290px;
+          }
         }
       }
     }
