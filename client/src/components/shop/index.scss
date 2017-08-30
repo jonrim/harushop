@@ -188,6 +188,10 @@ h2 {
       &:hover {
         color: #f39e39;
       }
+
+      &:active, &:focus {
+        background-color: transparent;
+      }
     }
 
     .fa-arrow-circle-left {
