@@ -209,13 +209,12 @@ h2 {
 
       .item-image {
         align-items: stretch;
-        height: 100% !important;
 
         img {
           object-fit: cover;
           display: block !important;
           background-size: cover;
-          height: 290px;
+          height: 100%;
         }
       }
     }
