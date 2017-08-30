@@ -83,6 +83,11 @@ h2 {
 
 .slick-list {
   overflow: hidden;
+  width: 100%;
+}
+
+.slick-track {
+  display: flex !important;
 }
 
 .red.button {
@@ -186,6 +191,7 @@ h2 {
       outline: 0;
       color: white;
       width: 14%;
+      max-width: 48px;
 
       &:hover {
         color: #f39e39;
@@ -206,14 +212,7 @@ h2 {
       top: 15px;
     }
 
-    .slick-list {
-      overflow: hidden;
-      width: 100%;
-    }
-
     .slick-track {
-      display: flex;
-
       .item-image {
         align-items: stretch;
 
