@@ -5,13 +5,13 @@ import Slider from 'react-slick';
 
 class PrevNavButton extends React.Component {
   render() {
-    return <button onClick={this.props.onClick} className='fa fa-chevron-circle-left fa-3x' />
+    return <button onClick={this.props.onClick} className='fa fa-arrow-circle-left fa-3x' />
   }
 }
 
 class NextNavButton extends React.Component {
   render() {
-    return <button onClick={this.props.onClick} className='fa fa-chevron-circle-right fa-3x' />
+    return <button onClick={this.props.onClick} className='fa fa-arrow-circle-right fa-3x' />
   }
 }
 

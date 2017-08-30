@@ -91,14 +91,6 @@ h2 {
   font-size: 20px !important;
 }
 
-.fa-chevron-circle-left {
-  left: -2%;
-}
-
-.fa-chevron-circle-right {
-  right: -2%;
-}
-
 @media (max-width: 767px) {
   .mobile-item-details {
     display: inline-block;
@@ -188,15 +180,24 @@ h2 {
   .slick-slider {
     button {
       position: absolute;
-      top: calc(50% - 106px);
       z-index: 1;
       background: transparent;
       border: none;
       outline: 0;
-      color: #0688fe;
+      color: white;
       &:hover {
         color: #f39e39;
       }
+    }
+
+    .fa-arrow-circle-left {
+      left: 13px;
+      top: 15px;
+    }
+
+    .fa-arrow-circle-right {
+      right: 13px;
+      top: 15px;
     }
 
     .slick-list {
