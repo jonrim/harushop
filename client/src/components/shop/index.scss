@@ -190,8 +190,7 @@ h2 {
       border: none;
       outline: 0;
       color: white;
-      width: 14%;
-      max-width: 48px;
+      display: inline-block;
 
       &:hover {
         color: #f39e39;
