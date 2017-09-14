@@ -3,6 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
+const postcssObjectFitImages = require('postcss-object-fit-images')
 const precss = require('precss')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
@@ -49,7 +50,8 @@ module.exports = {
               options: {
                 plugins: (loader) => [
                   autoprefixer(),
-                  precss()
+                  precss(),
+                  postcssObjectFitImages()
                 ]
               }
             },

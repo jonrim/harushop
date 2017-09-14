@@ -7,6 +7,7 @@ import AlertContainer from 'react-alert';
 import PaypalExpressBtn from 'react-paypal-express-checkout';
 import Item from './Item';
 import 'whatwg-fetch';
+import objectFitImages from 'object-fit-images';
 
 const STRIPE_PUBLISHABLE = process.env.NODE_ENV === 'production' ?
 "pk_live_rKdUDjlzDrNmQenJd1pGaWfH" : "pk_test_vvZ5hoVS2njWOMhKCEpufe3h";
@@ -51,6 +52,7 @@ export default class Shop extends Component {
   }
 
   componentDidMount() {
+    objectFitImages();
     window.addEventListener('resize', e => {
       let checkoutButton = document.getElementsByClassName('App-header')[0].getElementsByTagName('button')[0];
       if (window.innerWidth < 450) {
