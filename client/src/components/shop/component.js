@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Grid, Icon, Button, Modal, Header, Image, Table, Input, Message } from 'semantic-ui-react';
+import { Grid, Icon, Button, Modal, Header, Image, Table, Input, Message, Segment } from 'semantic-ui-react';
 import StripeCheckout from 'react-stripe-checkout';
 import Slider from 'react-slick';
 import update from 'immutability-helper';
@@ -150,6 +150,7 @@ export default class Shop extends Component {
 
   changeNumSlides() {
     let numSlides = Math.floor(window.innerWidth / 260);
+    numSlides = (numSlides > 3) ? 3 : numSlides;
     this.setState({ numSlides });
   }
 
@@ -167,13 +168,14 @@ export default class Shop extends Component {
   }
 
   render() {
-    const { cart, items, fullName, street, city, state, zip } = this.state;
+    const { cart, items, fullName, street, city, state, zip, numSlides } = this.state;
     let totalPrice = cart.reduce((sum, item) => sum + item.quantity*item.info.price, 0);
     let settings = {
       infinite: true,
       speed: 500,
-      slidesToShow: 3,
+      slidesToShow: numSlides,
       slidesToScroll: 1,
+      autoplay: true,
       autoplaySpeed: 4000,
       arrows: false,
       centerMode: true,
@@ -330,7 +332,7 @@ export default class Shop extends Component {
           </Modal>
         </div>
         <div className="body-container">
-          <Slider {...settings}>
+          <Slider className='head-slider' {...settings}>
             {
               bannerPictures.map(picture => (
                 <div className="banner-picture" key={picture}>
@@ -341,9 +343,9 @@ export default class Shop extends Component {
           </Slider>
           <Message color='blue'>
             <Message.Header>
-              We are currently selling shirts in the United States only.
+              We are currently selling in the United States only.
             </Message.Header>
-            <p>We will sell shirts internationally soon. Sorry for the inconvenience!</p>
+            <p>We will sell internationally soon. Sorry for the inconvenience!</p>
           </Message>
           <Grid columns={3} stackable doubling>
             {

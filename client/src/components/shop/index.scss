@@ -90,6 +90,17 @@ h2 {
   }
 }
 
+.head-slider {
+  .slick-list {
+    padding: 0 !important;
+    margin: 0 52px;
+  }
+}
+
+.blue.message {
+  font-size: 24px;
+}
+
 .red.button {
   background-color: white !important;
   color: red !important;
@@ -116,11 +127,11 @@ h2 {
   }
 }
 
-.item {
-  .segment {
-    background-color: #e8e8e8; 
-  }
+.segment {
+  background-color: aliceblue !important; 
+}
 
+.item {
   .mobile-item-details {
     margin-bottom: 20px;
 
@@ -135,8 +146,8 @@ h2 {
     left: 20px;
     transition: left 0.5s ease-in-out;
     position: absolute;
-    top: 14px;
-    width: 300px;
+    top: 0px;
+    width: 265px;
     z-index: -1;
 
     ul {
