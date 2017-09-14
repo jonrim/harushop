@@ -1,42 +1,59 @@
 @import url(https://fonts.googleapis.com/css?family=Encode+Sans:100,300,400,500,700,900);
 
-.App {
+.app {
   text-align: center;
 }
 
-.App-header {
+.navbar {
   position: fixed;
   z-index: 3;
   width: 100%;
   top: 0;
   font-family: 'Encode Sans', sans-serif;
   text-align: left;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 900;
   padding: 23px !important;
+  background-color: #232f3e !important;
+  height: 72px;
+  padding: 20px;
+  color: white;
 
-  button {
-    top: -8px !important;
-  }
-}
-
-@media (max-width: 772px) {
-  .App-header {
+  @media (max-width: 772px) {
     font-size: 22px;
   }
-}
 
-@media (max-width: 384px) {
-  .App-header {
+  @media (max-width: 384px) {
     font-size: 20px;
+  }
+
+  .left.labeled.button {
+    top: -11px !important;
+  }
+
+  .mobile-checkout {
+    top: 10px !important;
+    width: 45px !important;
+    padding: 12px !important;
+    position: relative !important;
+    margin-right: -8px !important;
+    margin-top: -19px !important;
+
+    .icon {
+      padding: 0px !important;
+      width: 21px !important;
+    }
   }
 }
 
-.App-intro {
+
+
+
+.body-container {
   margin-top: 77px;
 }
 
-.App-logo {
+.haru-logo {
   height: 60px;
   display: inline-block;
   padding: 5px;
@@ -57,36 +74,20 @@ h2 {
   position: relative !important;
 }
 
-.banner-picture {
-
-  img {
-    background-size: cover;
-    object-fit: cover;
-    height: 350px;
-    width: 99%;
-  }
-}
-
-.mobile-checkout {
-  width: 45px !important;
-  padding: 12px !important;
-  position: relative !important;
-  margin-right: -8px !important;
-  margin-top: -19px !important;
-
-  .icon {
-    padding: 0px !important;
-    width: 21px !important;
-  }
-}
-
-.slick-list {
+.slick-slider {
   overflow: hidden;
-  width: 100%;
-}
 
-.slick-track {
-  display: flex !important;
+  .banner-picture {
+    display: flex !important;
+    height: 350px;
+
+    img {
+      display: block;
+      background-size: cover;
+      object-fit: cover;
+      width: 99%;
+    }
+  }
 }
 
 .red.button {
@@ -263,7 +264,7 @@ h2 {
   z-index: 1 !important;
 }
 
-.App-intro {
+.body-container {
   .button .icon {
     width: 46px !important;
   }
@@ -288,23 +289,9 @@ h2 {
   color: white !important;
 }
 
-.App-header {
-  background-color: #222;
-  height: 72px;
-  padding: 20px;
-  color: white;
-}
 
-.App-header .left.labeled.button {
-  top: -6px !important;
-}
 
-.App-header .mobile-checkout {
-  top: 10px !important;
-}
-
-.App-intro {
-  font-size: large;
+.body-container {
   clear: both;
 }
 
@@ -413,8 +400,3 @@ tfoot.full-width th {
   }
 }
 
-@media (max-width: 798px) {
-  .App-header h2 {
-    display: none;
-  }
-}

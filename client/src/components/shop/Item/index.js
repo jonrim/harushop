@@ -56,9 +56,7 @@ export default class Item extends Component {
     return (
       <div className='item'>
         {
-          (totalStock > 0) ? (
-            <Label className='item-status' floating color='blue' ribbon>IN STOCK</Label>
-          ) : (
+          (totalStock <= 0) && (
             <Label className='item-status' floating color='red' ribbon>SOLD OUT</Label>
           )
         }

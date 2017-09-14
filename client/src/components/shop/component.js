@@ -54,7 +54,7 @@ export default class Shop extends Component {
   componentDidMount() {
     objectFitImages();
     window.addEventListener('resize', e => {
-      let checkoutButton = document.getElementsByClassName('App-header')[0].getElementsByTagName('button')[0];
+      let checkoutButton = document.querySelector('.navbar').querySelector('.button');
       if (window.innerWidth < 450) {
         checkoutButton.classList.add('small');
         checkoutButton.classList.remove('large');
@@ -174,7 +174,6 @@ export default class Shop extends Component {
       speed: 500,
       slidesToShow: 3,
       slidesToScroll: 1,
-      autoplay: true,
       autoplaySpeed: 4000,
       arrows: false,
       centerMode: true,
@@ -186,10 +185,10 @@ export default class Shop extends Component {
       production: process.env.PAYPAL_PRODUCTION_ID
     };
     return (
-      <div className="App">
+      <div className="app">
         <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
-        <div className="App-header">
-          <img src={require('./logo.png')} className="App-logo" alt="logo" />
+        <div className="navbar">
+          <img src={require('./logo.png')} className="haru-logo" alt="logo" />
           <span>HARU THE SHIBA INU</span>
           <Modal
             trigger={ 
@@ -330,13 +329,15 @@ export default class Shop extends Component {
             </Modal.Content>
           </Modal>
         </div>
-        <div className="App-intro">
+        <div className="body-container">
           <Slider {...settings}>
-            <div className="banner-picture"><img src={require('./p1.png')} /></div>
-            <div className="banner-picture"><img src={require('./p2.jpg')} /></div>
-            <div className="banner-picture"><img src={require('./p3.jpg')} /></div>
-            <div className="banner-picture"><img src={require('./p4.jpg')} /></div>
-            <div className="banner-picture"><img src={require('./p5.jpg')} /></div>
+            {
+              bannerPictures.map(picture => (
+                <div className="banner-picture" key={picture}>
+                  <img src={picture} />
+                </div>
+              ))
+            }
           </Slider>
           <Message color='blue'>
             <Message.Header>
@@ -358,3 +359,11 @@ export default class Shop extends Component {
     );
   }
 }
+
+const bannerPictures = [
+  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414610/p1_mktjmf.png',
+  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414611/p2_sof0sq.jpg',
+  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414611/p3_hriyzu.jpg',
+  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414611/p4_qjcjlh.jpg',
+  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414612/p5_nwv8po.jpg'
+];
