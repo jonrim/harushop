@@ -92,7 +92,7 @@ const seedItems = function () {
           productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
         },
         {
-          name: 'The Official Clothing Line of Haru®',
+          name: `Haru's Tongue`,
           imageUrls: 'https://vangogh.teespring.com/v3/image/bQ45O_Yf041Dmd4noXBTfJZC4No/560/560.jpg',
           price: 35.00,
           stock: '{sm: 0, md: 5, lg: 10}',
@@ -100,7 +100,7 @@ const seedItems = function () {
           productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
         },
         {
-          name: 'The Official Clothing Line of Haru®',
+          name: `Haru's Tongue`,
           imageUrls: 'https://vangogh.teespring.com/v3/image/cYE8ihgU-lFyRD5pAoj0ghfEXPo/560/560.jpg',
           price: 18.00,
           stock: '{sm: 0, md: 5, lg: 10}',
