@@ -4,16 +4,10 @@ import { Route, IndexRoute } from 'react-router';
 import {
   Shop
 } from 'components'
-import {
-  Layout,
-  NavbarLayout
-} from './containers';
 
 const getRoutes = (store) => {
   return (
-    <Route component={NavbarLayout} path='/'>
-      <IndexRoute component={Shop} />
-    </Route>
+    <Route component={Shop} path='/' />
   );
 };
 

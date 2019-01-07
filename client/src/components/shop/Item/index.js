@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
-import { Segment, Header, Image, Label, Icon, Form, Dropdown, Message } from 'semantic-ui-react';
+import { Header, Image, Label, Icon, Form, Dropdown, Message } from 'semantic-ui-react';
 import 'ie-array-find-polyfill';
 import Slider from 'react-slick';
-
-class PrevNavButton extends React.Component {
-  render() {
-    return <button onClick={this.props.onClick} className='fa fa-arrow-circle-left fa-3x' />
-  }
-}
-
-class NextNavButton extends React.Component {
-  render() {
-    return <button onClick={this.props.onClick} className='fa fa-arrow-circle-right fa-3x' />
-  }
-}
 
 export default class Item extends Component {
   constructor(props) {
@@ -44,14 +32,6 @@ export default class Item extends Component {
   render() {
     const { size, quantity } = this.state;
     const { addToCart, shirt, cart } = this.props;
-    var settings = {
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      prevArrow: <PrevNavButton/>,
-      nextArrow: <NextNavButton/>
-    };
     let totalStock = Object.keys(shirt.stock).map(key => shirt.stock[key]).reduce((total, sizeStock) => total + sizeStock, 0);
     return (
       <div className='item'>
@@ -60,18 +40,12 @@ export default class Item extends Component {
             <Label className='item-status' floating color='red' ribbon>SOLD OUT</Label>
           )
         }
-        <Segment className={totalStock === 0 ? 'sold-out' : 'in-stock'}>
-          <Slider ref={slider => this.slider = slider} {...settings}>
-            {
-              shirt.imageUrls.split(',').map(imageUrl => (
-                <div className="item-image" key={imageUrl}><Image shape='rounded' src={imageUrl} fluid /></div>
-              ))
-            }
-          </Slider>
+        <div className={totalStock === 0 ? 'sold-out' : 'in-stock'}>
+          <div className="item-image" key={shirt.imageUrls}><Image src={shirt.imageUrls} fluid /></div>
           <Form onSubmit={e => addToCart(shirt, size, quantity)}>
             <Form.Field>
               <b>{ shirt.name }</b>
-              <p>${ shirt.price % 1 === 0 ? Math.trunc(shirt.price) : parseFloat(shirt.price).toFixed(2) }</p>
+              <p style={{color: 'rgba(0,0,0,0.7)'}}>${ parseFloat(shirt.price).toFixed(2) }</p>
               <div className='mobile-item-details'>
                 <p>
                   <i>"{ shirt.description }"</i>
@@ -128,8 +102,8 @@ export default class Item extends Component {
             </Form.Button>
             <div id="clear"></div>
           </Form>
-        </Segment>
-        <Segment className='item-details'>
+        </div>
+        <div className='item-details'>
           <p>
             <i>"{ shirt.description }"</i>
           </p>
@@ -143,7 +117,7 @@ export default class Item extends Component {
               ))
             }
           </ul>
-        </Segment>
+        </div>
       </div>
     )
   }

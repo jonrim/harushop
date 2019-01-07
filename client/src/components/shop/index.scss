@@ -5,19 +5,13 @@
 }
 
 .navbar {
-  position: fixed;
   z-index: 3;
   width: 100%;
-  top: 0;
   font-family: 'Encode Sans', sans-serif;
-  text-align: left;
-  font-size: 24px;
-  font-weight: 900;
-  padding: 23px !important;
-  background-color: #232f3e !important;
-  height: 72px;
-  padding: 20px;
+  height: 130px;
+  margin-top: 10px;
   color: white;
+  position: relative;
 
   @media (max-width: 772px) {
     font-size: 22px;
@@ -27,38 +21,32 @@
     font-size: 20px;
   }
 
-  .left.labeled.button {
-    top: -11px !important;
+  .mobile-checkout, .desktop-checkout {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
   }
 
   .mobile-checkout {
-    top: 10px !important;
-    width: 45px !important;
-    padding: 12px !important;
-    position: relative !important;
-    margin-right: -8px !important;
-    margin-top: -19px !important;
-
-    .icon {
-      padding: 0px !important;
-      width: 21px !important;
-    }
+    width: 60px !important;
+    padding-left: 10px !important;
   }
 }
 
-
-
-
-.body-container {
-  margin-top: 77px;
+.haru-logo {
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  position: absolute;
+  width: 100px;
 }
 
-.haru-logo {
-  height: 60px;
-  display: inline-block;
-  padding: 5px;
-  float: left;
-  margin-top: -20px;
+.banner {
+  width: 100%;
+  height: 50vw;
+  max-height: 500px;
+  object-fit: cover;
 }
 
 h2 {
@@ -127,11 +115,39 @@ h2 {
   }
 }
 
-.segment {
-  background-color: aliceblue !important; 
+.hl-top, .hl-bot {
+  position: absolute;
+  left: 25%;
+  width: 50%;
+  border-top: 2px solid rgba(0,0,0,0.15);
+}
+
+.hl-top {
+  top: -1px;
+}
+
+.hl-bot {
+  bottom: -1px;
+}
+
+.vl-left, .vl-right {
+  position: absolute;
+  top: 25%;
+  height: 50%;
+  border-left: 2px solid rgba(0,0,0,0.15);
+}
+
+.vl-left {
+  left: -1px;
+}
+
+.vl-right {
+  right: -1px;
 }
 
 .item {
+  padding: 10px;
+
   .mobile-item-details {
     margin-bottom: 20px;
 
@@ -144,11 +160,17 @@ h2 {
   .item-details {
     text-align: center;
     left: 20px;
-    transition: left 0.5s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    transform: scale(0) translateX(-50%) translateY(-50%);
     position: absolute;
-    top: 0px;
+    top: 50%;
+    left: 50%;
     width: 265px;
-    z-index: -1;
+    z-index: 5;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid rgba(0,0,0,0.2);
 
     ul {
       text-align: left;
@@ -157,7 +179,7 @@ h2 {
 
   &:hover {
     .item-details {
-      left: calc(100% - 14px);
+      transform: scale(1) translateX(-50%) translateY(-50%);
     }
   }
 
@@ -190,55 +212,6 @@ h2 {
 
     span {
       display: inline-block !important;
-    }
-  }
-
-  .slick-slider {
-    button {
-      position: absolute;
-      z-index: 1;
-      background: transparent;
-      border: none;
-      outline: 0;
-      color: white;
-      display: inline-block;
-
-      &:hover {
-        color: #f39e39;
-      }
-
-      &:active, &:focus {
-        background-color: transparent;
-      }
-    }
-
-    .fa-arrow-circle-left {
-      left: 3%;
-      top: 15px;
-    }
-
-    .fa-arrow-circle-right {
-      right: 3%;
-      top: 15px;
-    }
-
-    .slick-track {
-      .item-image {
-        align-items: stretch;
-
-        img {
-          object-fit: cover;
-          display: block !important;
-          background-size: cover;
-          height: 100%;
-        }
-
-        @media (max-width: 375px) {
-          img {
-            height: 290px;
-          }
-        }
-      }
     }
   }
 }
@@ -287,8 +260,14 @@ h2 {
   left: initial !important;
 }
 
-.attached.segment .field {
-  text-align: left;
+.item-image {
+  height: 400px;
+
+  img {
+    max-height: 400px;
+    width: auto !important;
+    margin: auto;
+  }
 }
 
 #clear {
@@ -336,6 +315,12 @@ tfoot.full-width th {
 }
 
 .checkout-modal {
+  .fieldSpan {
+    input::placeholder {
+      color : rgba(0,0,0,0.6) !important;
+    }
+  }
+
   .fullName, .street {
     margin-bottom: 10px;
     width: 100%;

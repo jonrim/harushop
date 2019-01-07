@@ -22,17 +22,8 @@ const information = [
   {display: 'Zip Code', name: 'zip'}
 ];
 
-class PrevNavButton extends React.Component {
-  render() {
-    return <button onClick={this.props.onClick} className='fa fa-arrow-circle-left fa-3x' />
-  }
-}
-
-class NextNavButton extends React.Component {
-  render() {
-    return <button onClick={this.props.onClick} className='fa fa-arrow-circle-right fa-3x' />
-  }
-}
+const LOGO_URL='//dslv9ilpbe7p1.cloudfront.net/Cwu3H_1rBMO8fh-xZoHCJg_store_logo_image.png';
+const BANNER_URL='//dslv9ilpbe7p1.cloudfront.net/SQc816rmr16ri_f9P9zxFg_store_banner_image.png';
 
 export default class Shop extends Component {
   constructor(props) {
@@ -170,18 +161,6 @@ export default class Shop extends Component {
   render() {
     const { cart, items, fullName, street, city, state, zip, numSlides } = this.state;
     let totalPrice = cart.reduce((sum, item) => sum + item.quantity*item.info.price, 0);
-    let settings = {
-      infinite: true,
-      speed: 500,
-      slidesToShow: numSlides,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 4000,
-      arrows: false,
-      centerMode: true,
-      prevArrow: <PrevNavButton/>,
-      nextArrow: <NextNavButton/>
-    };
     let client = {
       sandbox:    'ARKWITL-coNrHSGbt8_WR5WWuINAGEkw6pFP_K-UieX5As0Mwva_y2uVNeUoX5EdO8rPUYuothHLFup3',
       production: process.env.PAYPAL_PRODUCTION_ID
@@ -190,41 +169,37 @@ export default class Shop extends Component {
       <div className="app">
         <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
         <div className="navbar">
-          <img src={require('./logo.png')} className="haru-logo" alt="logo" />
-          <span>HARU THE SHIBA INU</span>
+          <img src={LOGO_URL} className="haru-logo" alt="logo" />
           <Modal
             trigger={ 
-              
-                window.innerWidth >= 656 ?
-                (
-                  <Button 
-                    animated='vertical'
-                    disabled={cart.length === 0}
-                    floated='right'
-                    icon
-                    labelPosition='left'
-                    color='yellow'
-                    size={'large'}
-                    onClick={e=> this.handleCheckoutModal(e, true)}
-                  >
-                    <Icon name='shop' size='large' />
-                    <Button.Content hidden>Thank you!</Button.Content>
-                    <Button.Content visible>Proceed to Checkout</Button.Content>
-                  </Button>
-                ) : (
-                  <Button 
-                    className='mobile-checkout'
-                    animated='vertical'
-                    disabled={cart.length === 0}
-                    floated='right'
-                    color='yellow'
-                    size={'large'}
-                    onClick={e=> this.handleCheckoutModal(e, true)}
-                  >
-                    <Icon name='shop' size='large' />
-                  </Button>
-                )
-              
+              window.innerWidth >= 656 ?
+              (
+                <Button 
+                  className='desktop-checkout'
+                  animated='vertical'
+                  disabled={cart.length === 0}
+                  icon
+                  labelPosition='left'
+                  color='yellow'
+                  size={'large'}
+                  onClick={e=> this.handleCheckoutModal(e, true)}
+                >
+                  <Icon name='shop' size='large' />
+                  <Button.Content hidden>Thank you!</Button.Content>
+                  <Button.Content visible>Proceed to Checkout</Button.Content>
+                </Button>
+              ) : (
+                <Button 
+                  className='mobile-checkout'
+                  animated='vertical'
+                  disabled={cart.length === 0}
+                  color='yellow'
+                  size={'large'}
+                  onClick={e=> this.handleCheckoutModal(e, true)}
+                >
+                  <Icon name='shop' size='large' />
+                </Button>
+              )
             }
             closeIcon='close'
             open={this.state.showCheckoutModal}
@@ -263,7 +238,7 @@ export default class Shop extends Component {
                           {item.size}
                         </Table.Cell>
                         <Table.Cell>
-                          ${item.info.price % 1 === 0 ? Math.trunc(item.info.price) : parseFloat(item.info.price).toFixed(2)}
+                          ${parseFloat(item.info.price).toFixed(2)}
                         </Table.Cell>
                         <Table.Cell>
                           {item.quantity}
@@ -332,26 +307,16 @@ export default class Shop extends Component {
           </Modal>
         </div>
         <div className="body-container">
-          <Slider className='head-slider' {...settings}>
-            {
-              bannerPictures.map(picture => (
-                <div className="banner-picture" key={picture}>
-                  <img src={picture} />
-                </div>
-              ))
-            }
-          </Slider>
-          <Message color='blue'>
-            <Message.Header>
-              We are currently selling in the United States only.
-            </Message.Header>
-            <p>We will sell internationally soon. Sorry for the inconvenience!</p>
-          </Message>
+          <img src={BANNER_URL} className="banner" />
           <Grid columns={3} stackable doubling>
             {
               items.map((shirt, index) => (
-                <Grid.Column key={shirt.name}>
+                <Grid.Column key={shirt.name+index}>
+                  <div className='hl-top'></div>
+                  <div className='vl-left'></div>
                   <Item addToCart={this.addToCart} shirt={shirt} cart={cart} index={index}/>
+                  <div className='vl-right'></div>
+                  <div className='hl-bot'></div>
                 </Grid.Column>
               ))
             }
@@ -361,11 +326,3 @@ export default class Shop extends Component {
     );
   }
 }
-
-const bannerPictures = [
-  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414610/p1_mktjmf.png',
-  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414611/p2_sof0sq.jpg',
-  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414611/p3_hriyzu.jpg',
-  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414611/p4_qjcjlh.jpg',
-  'https://res.cloudinary.com/fresh-aire-mechanical-co/image/upload/v1505414612/p5_nwv8po.jpg'
-];

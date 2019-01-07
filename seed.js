@@ -20,13 +20,93 @@ const Promise = require('sequelize').Promise;
 const seedItems = function () {
     const items = [
         {
-          name: 'Orange Haru white shirt',
-          imageUrls: "https://i.gyazo.com/ded971f5828df9741bb080b1515b08c0.png,https://i.gyazo.com/220fd07dd52c1443201565e15913b4c0.jpg,https://i.gyazo.com/0d2d3ba740378137d8b4b80a6bcf0337.jpg,https://i.gyazo.com/1d9d22af84db10e0b1402ee4ec423091.jpg,https://i.gyazo.com/55e3ffd1eb4a0a2e1ef0d44d6b432a1a.png",
-          price: 20.00,
+          name: 'The Official Clothing Line of Haru®',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/oWJ_JXcnuF6mW8JDWXpC96hEAww/560/560.jpg ',
+          price: 18.00,
           stock: '{sm: 0, md: 5, lg: 10}',
-          description: 'Simple in design, easy to style and a real silhouette of Haru the Shiba Inu',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
           productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
         },
+        {
+          name: 'The Official Clothing Line of Haru®',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/xn2L46eqORhmIlxpBzAqyZ25jhA/560/560.jpg',
+          price: 25.00,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: 'The Official Clothing Line of Haru®',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/0oblv7nT-lpJGCVEu_rx1fzukaQ/560/560.jpg',
+          price: 35.00,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: 'The Official Clothing Line of Haru® [Vector]',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/2ys-IfcmgKGPsThd6VtqNNpNjkM/560/560.jpg',
+          price: 18.00,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: 'The Official Clothing Line of Haru® [Vector]',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/RqUcWsv22w_yQ6OW6tApKhmKje8/560/560.jpg',
+          price: 35.00,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: 'The Official Clothing Line of Haru® [Vector]',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/sUDbHAYRbl2mD0s3z2H4N9yBZ9c/560/560.jpg',
+          price: 25.00,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: 'The Triple Haru® Beach Towel',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/y_xgxLlQOShsHS5bWZ5n57KaLOk/560/560.jpg',
+          price: 27.99,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: 'The First Haru® Socks',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/ODkxfcYp9CWTiDitduGcYc4NS1Q/560/560.jpg',
+          price: 15.99,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: `Haru's Tongue`,
+          imageUrls: 'https://vangogh.teespring.com/v3/image/sMRBIJQKmqkfHEXslbXWw33Hvl0/560/560.jpg',
+          price: 20.00,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: 'The Official Clothing Line of Haru®',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/bQ45O_Yf041Dmd4noXBTfJZC4No/560/560.jpg',
+          price: 35.00,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        },
+        {
+          name: 'The Official Clothing Line of Haru®',
+          imageUrls: 'https://vangogh.teespring.com/v3/image/cYE8ihgU-lFyRD5pAoj0ghfEXPo/560/560.jpg',
+          price: 18.00,
+          stock: '{sm: 0, md: 5, lg: 10}',
+          description: 'Simple in design, easy to style and a real outline of Haru the Shiba Inu',
+          productDetails: 'Top quality American Apparel brand, 100% Cotton, Seamless Collar, Double needle sleeve and bottom hems'
+        }
     ];
 
     
