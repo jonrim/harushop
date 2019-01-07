@@ -320,6 +320,8 @@ tfoot.full-width th {
 }
 
 .checkout-modal {
+  margin-top: 0 !important;
+
   .fieldSpan {
     input::placeholder {
       color : rgba(0,0,0,0.6) !important;
