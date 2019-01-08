@@ -9,9 +9,11 @@ export default class Item extends Component {
     let shirt = props.shirt;
     this.state = {
       size: shirt.stock['sm'] > 0 ? 'sm' : (shirt.stock['md'] > 0 ? 'md' : 'lg'),
-      quantity: 1
+      quantity: 1,
+      hideDetails: true
     };
     this.setProp = this.setProp.bind(this);
+    this.toggleHideDetails = this.toggleHideDetails.bind(this);
   }
 
   setProp(e, {name, value}) {
@@ -24,13 +26,17 @@ export default class Item extends Component {
     this.setState(obj);
   }
 
-  componentDidMount() {
+  toggleHideDetails() {
     const { index } = this.props;
-    let item = document.getElementsByClassName('item')[index];
+    let itemDetails = document.getElementsByClassName('item-details')[index];
+    itemDetails.classList.toggle('show-details');
+    this.setState({
+      hideDetails: !this.state.hideDetails
+    });
   }
 
   render() {
-    const { size, quantity } = this.state;
+    const { size, quantity, hideDetails } = this.state;
     const { addToCart, shirt, cart } = this.props;
     let totalStock = Object.keys(shirt.stock).map(key => shirt.stock[key]).reduce((total, sizeStock) => total + sizeStock, 0);
     return (
@@ -46,6 +52,12 @@ export default class Item extends Component {
             <Form.Field>
               <b>{ shirt.name }</b>
               <p style={{color: 'rgba(0,0,0,0.7)'}}>${ parseFloat(shirt.price).toFixed(2) }</p>
+              <div 
+                className='show-details-btn'
+                onClick={this.toggleHideDetails}
+              >
+                {hideDetails ? 'Show More Details' : 'Hide Details'}
+              </div>
               <div className='mobile-item-details'>
                 <p>
                   <i>"{ shirt.description }"</i>
@@ -92,7 +104,6 @@ export default class Item extends Component {
             </Form.Field>
             <Form.Button
               disabled={shirt.stock[size] === 0 || cart.find(item => item.info.id === shirt.id && item.size === size) !== undefined}
-              floated='right'
               icon
               labelPosition='left'
               color='black'
