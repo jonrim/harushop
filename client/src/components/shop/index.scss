@@ -335,6 +335,10 @@ tfoot.full-width th {
   left: 50%;
   transform: translateY(0%) translateX(-50%);
 
+  .content {
+    padding: 0 !important;
+  }
+
   .fieldSpan {
     input::placeholder {
       color : rgba(0,0,0,0.6) !important;
@@ -376,13 +380,27 @@ tfoot.full-width th {
   .grid {
     .paypal-col {
       display: flex !important;
-      pointer-events: none;
-      opacity: 0.5;
 
       .paypal-div {
         margin: auto;
         height: 40px;
       }
+    }
+  }
+
+  .stripe-btn {
+    padding: 0;
+    height: 50px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+    border-radius: 25px;
+
+    .image {
+      bottom: 18px;
     }
   }
 

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Grid, Icon, Button, Modal, Header, Image, Table, Input, Message, Segment } from 'semantic-ui-react';
+import { Grid, Icon, Button, Modal, Header, Image, Table, Input, Message } from 'semantic-ui-react';
 import StripeCheckout from 'react-stripe-checkout';
 import Slider from 'react-slick';
 import update from 'immutability-helper';
@@ -294,10 +294,16 @@ export default class Shop extends Component {
                       // Note: you can change the event to `onTouchTap`, `onClick`, `onTouchStart`
                       // useful if you're using React-Tap-Event-Plugin
                       triggerEvent="onClick"
-                      className='stripe-btn'
                     >
-                      <Button color='blue' disabled={totalPrice === 0 || !fullName || !street || !state || !zip || !city}>
-                        Purchase with Stripe
+                      <Button
+                        disabled={totalPrice === 0 || !fullName || !street || !state || !zip || !city}
+                        className='stripe-btn'
+                      >
+                        <Image 
+                          src='https://wptravel.io/wp-content/uploads/edd/2018/02/stripe.png' 
+                          size='small' 
+                          centered
+                        />
                       </Button>
                     </StripeCheckout>
                   </Grid.Column>
