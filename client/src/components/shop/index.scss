@@ -172,9 +172,9 @@ h2 {
     text-align: center;
     left: 20px;
     transition: all 0.1s ease-in-out;
-    transform: scale(0) translateX(-50%) translateY(-50%);
+    transform: scale(0) translateX(-50%);
     position: absolute;
-    bottom: 140px;
+    bottom: 230px;
     left: 50%;
     width: 265px;
     z-index: 5;
@@ -184,7 +184,7 @@ h2 {
     border: 2px solid rgba(0,0,0,0.2);
 
     &.show-details {
-      transform: scale(1) translateX(-50%) translateY(-50%);
+      transform: scale(1) translateX(-50%);
     }
 
     ul {
